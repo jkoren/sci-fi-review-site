@@ -1,4 +1,5 @@
 # README
+[![Codeship Status for jkoren/sci-fi-review-site](https://app.codeship.com/projects/58e067e8-9c4b-480b-a4fc-2350021a8287/status?branch=master)](https://app.codeship.com/projects/414702)
 
 Project: Science Fiction Movie Review Site
 Authors: Jeff, Josh, Liishi, Mark, Chris
