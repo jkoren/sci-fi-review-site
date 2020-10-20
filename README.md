@@ -5,7 +5,7 @@ Project: Science Fiction Movie Review Site
 Authors: Jeff, Josh, Liishi, Mark, Chris
 Heroku link to deployed site: TBD
 A list of features included in the site: TBD
-An outline of the technologies in the project: Rails, Ruby, React, TBD
+An outline of the technologies in the project: Rails, Ruby, React, TBD 
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
