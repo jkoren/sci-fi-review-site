@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
+  resources :homes, only: [:index]
   
   root 'homes#index'
-
   get "/movies", to: "homes#index"
-
   get "/movies/:id", to: "homes#index"
-
 
   namespace :api do
     namespace :v1 do

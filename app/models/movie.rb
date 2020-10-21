@@ -3,7 +3,3 @@ class Movie < ApplicationRecord
   validates :summary, presence: true
   validates :year, numericality: true
 end
-
-
-
-
