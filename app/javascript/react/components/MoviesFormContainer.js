@@ -7,22 +7,40 @@ const MoviesFormContainer = (props) => {
     year: ""
   })
 
-  const handleInputChange = (event) => {
+  const inputChangeHandler = (event) => {
     setSubmittedMovie({
       ...submittedMovie,
       [event.currentTarget.name]: event.currentTarget.value
     })
   }
 
+  const onClickHandler = (event) => {
+    event.preventDefault()
+    fetch('/api/v1/movies.json', {
+      method: "POST",
+      body: JSON.stringify(submittedMovie)
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        // error stuff
+      }
+    }) 
+    .then(body => {
+      debugger
+    })
+  }
+
   return(
-    <form>
+    <form onSubmit={onClickHandler}>
       <label>
         Title
         <input 
           name="title"
           id="title"
           type="text"
-          onChange={handleInputChange}
+          onChange={inputChangeHandler}
           />
       </label>
       <label>
@@ -31,7 +49,7 @@ const MoviesFormContainer = (props) => {
           name="summary"
           id="summary"
           type="text"
-          onChange={handleInputChange}
+          onChange={inputChangeHandler}
           />
       </label>
       <label>
@@ -40,7 +58,7 @@ const MoviesFormContainer = (props) => {
           name="year"
           id="year"
           type="text"
-          onChange={handleInputChange}
+          onChange={inputChangeHandler}
           />
       </label>
       <input
