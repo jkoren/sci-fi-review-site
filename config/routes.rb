@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'homes#index'
 
   get "/movies", to: "homes#index"
+  get "/movies/new", to: "homes#index"
 
   namespace :api do
     namespace :v1 do
