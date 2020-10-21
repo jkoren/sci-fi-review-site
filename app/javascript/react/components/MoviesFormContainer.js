@@ -16,9 +16,15 @@ const MoviesFormContainer = (props) => {
 
   const onClickHandler = (event) => {
     event.preventDefault()
+    debugger
     fetch('/api/v1/movies.json', {
       method: "POST",
-      body: JSON.stringify(submittedMovie)
+      body: JSON.stringify(submittedMovie),
+      credentials: "same-origin",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
     })
     .then(response => {
       if (response.ok) {
