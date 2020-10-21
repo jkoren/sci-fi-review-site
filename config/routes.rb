@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :homes, only: [:index]
   
   root 'homes#index'
   get "/movies", to: "homes#index"
@@ -14,3 +13,4 @@ Rails.application.routes.draw do
     
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
+
