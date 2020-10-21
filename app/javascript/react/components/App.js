@@ -1,7 +1,17 @@
-import React from 'react'
+import React from "react"
+import { BrowserRouter, Route, Switch } from "react-router-dom"
 
-export const App = (props) => {
-  return (<h1>Make It So React</h1>)
+import MoviesIndexPage from "./MoviesIndexPage"
+
+export const App = () => {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={MoviesIndexPage} />
+        <Route exact path="/movies" component={MoviesIndexPage} />
+      </Switch>
+    </BrowserRouter>
+  )
 }
 
 export default App
