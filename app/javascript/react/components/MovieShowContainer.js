@@ -17,8 +17,7 @@ const MovieShowContainer = (props) => {
       }
       })
       .then((responseBody) => {
-        debugger
-          setMovie(responseBody)
+        setMovie(responseBody)
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`))
   }, [])
