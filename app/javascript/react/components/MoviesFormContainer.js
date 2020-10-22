@@ -54,7 +54,9 @@ const MoviesFormContainer = (props) => {
         if (response.ok) {
           return response.json()
         } else {
-          // error stuff
+          let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage);
+          throw(error);
         }
       }) 
       .then(body => {
@@ -75,6 +77,7 @@ const MoviesFormContainer = (props) => {
           })
         }
       })
+      .catch(error => console.error(`Error in fetch: ${error.message}`))
     }
   }
 
