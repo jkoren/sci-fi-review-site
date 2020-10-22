@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import ErrorList from './ErrorList'
 import { Redirect } from 'react-router-dom'
 import _ from 'lodash'
+
+import ErrorList from './ErrorList'
 
 const MoviesFormContainer = (props) => {
   const [submittedMovie, setSubmittedMovie] = useState({
@@ -40,7 +41,6 @@ const MoviesFormContainer = (props) => {
   const onClickHandler = (event) => {
     event.preventDefault()
     if (validforSubmission()) {
-      debugger
       fetch('/api/v1/movies.json', {
         method: "POST",
         body: JSON.stringify(submittedMovie),
@@ -58,10 +58,22 @@ const MoviesFormContainer = (props) => {
         }
       }) 
       .then(body => {
-        setShouldRedirect({
-          redirect: true,
-          id: body.id
-        })
+        if (body.errors === undefined) {
+          setShouldRedirect({
+            redirect: true,
+            id: body.id
+          })
+        } else {
+          const requiredFields = ["title", "summary", "year"]
+          requiredFields.forEach(field => { 
+            if (body.errors[field] !== undefined) {
+              setErrors({
+                ...errors,
+                [field]: body.errors[field][0]
+              })
+            }
+          })
+        }
       })
     }
   }

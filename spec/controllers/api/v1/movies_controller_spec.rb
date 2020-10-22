@@ -34,18 +34,33 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
     end
   end
   describe "GET#show" do
-  it "should return an movie with all its attributes" do
+    it "should return an movie with all its attributes" do
+      get :show, params: {id: movie2.id}
+      returned_json = JSON.parse(response.body)
 
-    get :show, params: {id: movie2.id}
-    returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+    
+      expect(returned_json.length).to eq 6
+      expect(returned_json["title"]).to eq movie2.title
+      expect(returned_json["year"]).to eq movie2.year
+      expect(returned_json["summary"]).to eq movie2.summary
+    end
+  end
+  
+  describe "POST#create" do
+    it "creating a new movie with all fields should redirect us to the show page of new movie" do
 
-    expect(response.status).to eq 200
-    expect(response.content_type).to eq("application/json")
-   
-    expect(returned_json.length).to eq 6
-    expect(returned_json["title"]).to eq movie2.title
-    expect(returned_json["year"]).to eq movie2.year
-    expect(returned_json["summary"]).to eq movie2.summary
+      post :create, params: { movie: {title: "Terminator", summary: "Arnold's voice", year: 1984} }
+
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+      expect(returned_json).to be_kind_of(Hash)
+      expect(returned_json).to_not be_kind_of(Array)
+      expect(returned_json["title"]).to eq "Terminator"
+      expect(returned_json["summary"]).to eq "Arnold's voice"
+      expect(returned_json["year"]).to eq 1984
     end
   end
 end
