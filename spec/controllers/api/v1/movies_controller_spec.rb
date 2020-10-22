@@ -6,6 +6,11 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
     summary: "Movie from childhood",
     year: 1977
   ) }
+  let!(:movie2) { Movie.create(
+    title: "Arrival",
+    summary: "Very sad story about parenthood",
+    year: 2017
+  ) }
 
   describe "GET#index" do
     it "should return a list of all the movies" do
@@ -16,12 +21,31 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json.length).to eq 1
+      expect(returned_json.length).to eq 2
 
       expect(returned_json[0]["title"]).to eq "Star Wars"
       expect(returned_json[0]["summary"]).to eq "Movie from childhood"
       expect(returned_json[0]["year"]).to eq 1977
 
+      expect(returned_json[1]["title"]).to eq "Arrival"
+      expect(returned_json[1]["summary"]).to eq "Very sad story about parenthood"
+      expect(returned_json[1]["year"]).to eq 2017
+
+    end
+  end
+  describe "GET#show" do
+  it "should return an movie with all its attributes" do
+
+    get :show, params: {id: movie2.id}
+    returned_json = JSON.parse(response.body)
+
+    expect(response.status).to eq 200
+    expect(response.content_type).to eq("application/json")
+   
+    expect(returned_json.length).to eq 6
+    expect(returned_json["title"]).to eq movie2.title
+    expect(returned_json["year"]).to eq movie2.year
+    expect(returned_json["summary"]).to eq movie2.summary
     end
   end
 end

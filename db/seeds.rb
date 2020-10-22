@@ -6,5 +6,5 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-movie = Movie.create!(title: "Star Wars", summary: "the movie of my childhood", year: "1977")
-movie2 = Movie.create!(title: "Aliens", summary: "Nuke the whole site from orbit", year: "1986")
+movie = Movie.create!(title: "Star Wars", summary: "the movie of my childhood", year: 1977)
+movie2 = Movie.create!(title: "Aliens", summary: "Nuke the whole site from orbit", year: 1986)
