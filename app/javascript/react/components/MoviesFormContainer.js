@@ -6,6 +6,7 @@ const MoviesFormContainer = (props) => {
     summary: "",
     year: ""
   })
+  const [shouldRedirect, setShouldRedirect] = useState(false)
 
   const inputChangeHandler = (event) => {
     setSubmittedMovie({
@@ -16,7 +17,6 @@ const MoviesFormContainer = (props) => {
 
   const onClickHandler = (event) => {
     event.preventDefault()
-    debugger
     fetch('/api/v1/movies.json', {
       method: "POST",
       body: JSON.stringify(submittedMovie),
@@ -34,7 +34,7 @@ const MoviesFormContainer = (props) => {
       }
     }) 
     .then(body => {
-      debugger
+      // debugger
     })
   }
 
