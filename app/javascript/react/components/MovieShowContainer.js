@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
-
 import MovieShow from "./MovieShow"
+import ReviewList from "./ReviewList"
 
 const MovieShowContainer = (props) => {
-  const [movie, setMovie] = useState({}) 
+  const [movie, setMovie] = useState({})
+
   const id = props.match.params.id 
   useEffect(() => {
     fetch(`/api/v1/movies/${id}`)
@@ -21,13 +22,20 @@ const MovieShowContainer = (props) => {
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`))
   }, [])
+  
   return (
-    <MovieShow 
-      id={movie.id}
-      title={movie.title}
-      summary={movie.summary}
-      year={movie.year}
-    />
+    <div>
+      <MovieShow 
+        id={movie.id}
+        title={movie.title}
+        summary={movie.summary}
+        year={movie.year}
+      />
+      <h2>Reviews:</h2>
+      <ReviewList
+        movieReviews={movie.reviews}
+      />
+    </div>
   )
 }
 

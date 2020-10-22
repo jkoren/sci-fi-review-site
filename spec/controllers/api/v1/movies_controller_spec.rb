@@ -12,6 +12,20 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
     year: 2017
   ) }
 
+  let!(:review1) { Review.create(
+    rating: 3,
+    body: "It was okay",
+    movie: movie2
+  )}
+
+  let!(:review2) {Review.create(
+    rating: 100,
+    body: "AWESOME!",
+    movie: movie2
+  )}
+
+
+
   describe "GET#index" do
     it "should return a list of all the movies" do
 
@@ -42,10 +56,16 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
     expect(response.status).to eq 200
     expect(response.content_type).to eq("application/json")
    
-    expect(returned_json.length).to eq 6
+
+    expect(returned_json.length).to eq 5
     expect(returned_json["title"]).to eq movie2.title
     expect(returned_json["year"]).to eq movie2.year
     expect(returned_json["summary"]).to eq movie2.summary
+    expect(returned_json["reviews"][0]["body"]).to eq review1.body
+    expect(returned_json["reviews"][0]['rating']).to eq review1.rating
+    expect(returned_json["reviews"][1]["body"]).to eq review2.body
+    expect(returned_json["reviews"][1]['rating']).to eq review2.rating
+
     end
   end
 end
