@@ -7,4 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 movie = Movie.create!(title: "Star Wars", summary: "the movie of my childhood", year: 1977)
+
 movie2 = Movie.create!(title: "Aliens", summary: "Nuke the whole site from orbit", year: 1986)
+
+review1 = Review.create!(rating: 1, body: "This movie stinks", movie: movie)
+
+review2 = Review.create!(rating: 5, body: "This movie rocks", movie: movie)
+
+
