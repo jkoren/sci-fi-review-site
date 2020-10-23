@@ -7,8 +7,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :movies, only: [:index, :show]
-      resources :reviews, only: [:show]
+      resources :movies, only: [:index, :show] do 
+        resources :reviews, only: [:show, :create]
+      end 
     end
   end
     
