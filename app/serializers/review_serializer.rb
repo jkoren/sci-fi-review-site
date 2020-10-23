@@ -3,5 +3,3 @@ class ReviewSerializer < ActiveModel::Serializer
 
   belongs_to :movie
 end
-
-  
