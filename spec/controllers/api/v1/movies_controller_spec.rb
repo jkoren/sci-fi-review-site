@@ -44,7 +44,6 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
       expect(returned_json[1]["title"]).to eq "Arrival"
       expect(returned_json[1]["summary"]).to eq "Very sad story about parenthood"
       expect(returned_json[1]["year"]).to eq 2017
-
     end
   end
 
@@ -69,7 +68,6 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
       expect(returned_json["reviews"][1]['rating']).to eq review2.rating
     end 
   end 
-
 
   describe "POST#create" do
     context "when a request correct params is made" do
