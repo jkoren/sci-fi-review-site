@@ -10,13 +10,11 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def create
-    binding.pry
     new_movie = Movie.new(movie_params)
-    binding.pry
     if new_movie.save
       render json: new_movie
     else
-      render json: { errors: new_movie.errors}
+      render json: { errors: new_movie.errors }
     end
   end
 

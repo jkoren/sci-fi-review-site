@@ -22,7 +22,10 @@
     "prop-types": "~15.6.0",
     "react": "~16.8.0",
     "react-dom": "~16.8.0",
+<<<<<<< HEAD
     "react-dropzone": "^11.2.0",
+=======
+>>>>>>> 411cf2e74f48fff05583fa237fd1e80636933e10
     "react-router-dom": "5.0.0",
     "redbox-react": "1.6.0"
   },
