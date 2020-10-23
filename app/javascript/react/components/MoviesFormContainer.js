@@ -51,10 +51,10 @@ const MoviesFormContainer = (props) => {
   const onClickHandler = (event) => {
     event.preventDefault()
     let movie = new FormData()
-    movie.append("title", submittedMovie.title)
-    movie.append("summary", submittedMovie.summary)
-    movie.append("year", submittedMovie.year)
-    movie.append("movie_poster", submittedMovie.image)
+    movie.append("movie[title]", submittedMovie.title)
+    movie.append("movie[summary]", submittedMovie.summary)
+    movie.append("movie[year]", submittedMovie.year)
+    movie.append("movie[movie_poster]", submittedMovie.image)
     if (validforSubmission()) {
       fetch('/api/v1/movies.json', {
         method: "POST",
