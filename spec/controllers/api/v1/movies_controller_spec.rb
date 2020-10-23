@@ -47,25 +47,79 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
 
     end
   end
+
   describe "GET#show" do
-  it "should return an movie with all its attributes" do
 
-    get :show, params: {id: movie2.id}
-    returned_json = JSON.parse(response.body)
+    it "should return an movie with all its attributes" do
 
-    expect(response.status).to eq 200
-    expect(response.content_type).to eq("application/json")
-   
+      get :show, params: {id: movie2.id}
+      returned_json = JSON.parse(response.body)
 
-    expect(returned_json.length).to eq 5
-    expect(returned_json["title"]).to eq movie2.title
-    expect(returned_json["year"]).to eq movie2.year
-    expect(returned_json["summary"]).to eq movie2.summary
-    expect(returned_json["reviews"][0]["body"]).to eq review1.body
-    expect(returned_json["reviews"][0]['rating']).to eq review1.rating
-    expect(returned_json["reviews"][1]["body"]).to eq review2.body
-    expect(returned_json["reviews"][1]['rating']).to eq review2.rating
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+    
 
+      expect(returned_json.length).to eq 5
+      expect(returned_json["title"]).to eq movie2.title
+      expect(returned_json["year"]).to eq movie2.year
+      expect(returned_json["summary"]).to eq movie2.summary
+      expect(returned_json["reviews"][0]["body"]).to eq review1.body
+      expect(returned_json["reviews"][0]['rating']).to eq review1.rating
+      expect(returned_json["reviews"][1]["body"]).to eq review2.body
+      expect(returned_json["reviews"][1]['rating']).to eq review2.rating
+    end 
+  end 
+
+
+  describe "POST#create" do
+    context "when a request correct params is made" do
+      let!(:good_movie_data) { { movie: {title: "Terminator", summary: "Arnold's voice", year: 1985} } }
+
+      it "adds the movie to the database" do 
+        previous_count = Movie.count
+
+        post :create, params: good_movie_data
+
+        new_count = Movie.count
+
+        expect(new_count).to eq previous_count + 1
+      end
+
+      it "returns the new movie object as json" do
+
+        post :create, params: good_movie_data
+
+        returned_json = JSON.parse(response.body)
+        expect(response.status).to eq 200
+        expect(response.content_type).to eq("application/json")
+        expect(returned_json).to be_kind_of(Hash)
+        expect(returned_json).to_not be_kind_of(Array)
+        expect(returned_json["title"]).to eq "Terminator"
+        expect(returned_json["summary"]).to eq "Arnold's voice"
+        expect(returned_json["year"]).to eq 1985
+      end
+    end
+
+    context "when a malformed request is made" do
+      let!(:bad_movie_data) { { movie: {summary: "Arnold's voice", year: 1985} } }
+
+      it "should not should not save to the database" do
+        previous_count = Movie.count
+
+        post :create, params: bad_movie_data
+
+        new_count = Movie.count
+
+        expect(new_count).to eq previous_count
+      end
+
+      it "does not successfully create a movie object" do
+        post :create, params: bad_movie_data
+
+        returned_response = JSON.parse(response.body)
+
+        expect(returned_response["errors"]["title"][0]).to eq "can't be blank"
+      end
     end
   end
-end
+end 

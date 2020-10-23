@@ -1,10 +1,5 @@
 class Api::V1::ReviewsController < ApplicationController
-  def show
-    render json: Review.find(params[:id])
-  end 
-
   def create
-    
     movie = Movie.find(params[:movie_id])
     
     new_review = Review.new(review_params)
