@@ -10,7 +10,9 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def create
+    binding.pry
     new_movie = Movie.new(movie_params)
+    binding.pry
     if new_movie.save
       render json: new_movie
     else
@@ -20,6 +22,6 @@ class Api::V1::MoviesController < ApplicationController
 
   private
     def movie_params
-      params.require(:movie).permit(:title, :summary, :year)
+      params.require(:movie).permit(:title, :summary, :year, :image [:movie_poster])
     end
 end
