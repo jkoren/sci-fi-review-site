@@ -11,11 +11,7 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def create
-    new_movie = Movie.new
-    new_movie.title = movie_params["title"]
-    new_movie.summary = movie_params["summary"]
-    new_movie.year = movie_params["year"]
-    new_movie.movie_poster = movie_params["movie_poster"]
+    new_movie = Movie.new(movie_params)
 
     if new_movie.save
       render json: new_movie
