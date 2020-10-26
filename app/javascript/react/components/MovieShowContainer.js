@@ -80,7 +80,7 @@ const MovieShowContainer = (props) => {
   
   return (
     <div>
-      <MovieShow 
+      <MovieShow
         id={movie.id}
         title={movie.title}
         summary={movie.summary}
