@@ -78,7 +78,7 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
         expect(new_count).to eq previous_count + 1
       end
 
-      it "returns the new camper object as json" do
+      it "returns the new movie object as json" do
 
         post :create, params: good_movie_data
 
