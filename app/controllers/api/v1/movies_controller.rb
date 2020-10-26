@@ -12,15 +12,16 @@ class Api::V1::MoviesController < ApplicationController
 
   def create
     new_movie = Movie.new(movie_params)
+
     if new_movie.save
       render json: new_movie
     else
-      render json: { errors: new_movie.errors}
+      render json: { errors: new_movie.errors }
     end
   end
 
   private
     def movie_params
-      params.require(:movie).permit(:title, :summary, :year)
+      params.require(:movie).permit([:title, :summary, :year, :movie_poster])
     end
 end

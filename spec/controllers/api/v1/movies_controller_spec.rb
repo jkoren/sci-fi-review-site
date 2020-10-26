@@ -23,9 +23,6 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
     body: "AWESOME!",
     movie: movie2
   )}
-
-
-
   describe "GET#index" do
     it "should return a list of all the movies" do
 
@@ -86,6 +83,7 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
         post :create, params: good_movie_data
 
         returned_json = JSON.parse(response.body)
+
         expect(response.status).to eq 200
         expect(response.content_type).to eq("application/json")
         expect(returned_json).to be_kind_of(Hash)
