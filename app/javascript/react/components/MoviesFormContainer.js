@@ -103,7 +103,7 @@ const MoviesFormContainer = (props) => {
         <p class="callout secondary cell small-6">To add a new movie please enter title, summary, and year!</p>
       </div>
       
-      <div>
+      <div class="field">
         <form onSubmit={onClickHandler}>
         <ErrorList errors={errors} />
 
@@ -139,6 +139,17 @@ const MoviesFormContainer = (props) => {
             value={submittedMovie.year}
             />
         </label>
+
+        <Dropzone onDrop={handleFileUpload}>
+          {({getRootProps, getInputProps}) => (
+            <section>
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <p>Click to upload a movie poster</p>
+              </div>
+            </section>
+          )}
+        </Dropzone>
 
         <input
           type="submit"
