@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-feature 'user signs in', %Q{
+xfeature 'user signs in', %Q{
   As a signed up user
   I want to sign in
   So that I can regain access to my account
 } do
-  scenario 'specify valid credentials' do
+  xscenario 'specify valid credentials' do
     user = FactoryBot.create(:user)
 
     visit new_user_session_path
@@ -19,7 +19,7 @@ feature 'user signs in', %Q{
     expect(page).to have_content('Sign Out')
   end
 
-  scenario 'specify invalid credentials' do
+  xscenario 'specify invalid credentials' do
     visit new_user_session_path
 
     click_button 'Log in'
