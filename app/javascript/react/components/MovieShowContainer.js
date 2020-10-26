@@ -22,45 +22,6 @@ const MovieShowContainer = (props) => {
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`))
   }, [])
-
-  if (movie.title && !reviews){
-    setReviews(movie.reviews)
-  }
-
-  const addNewReview = (newReviewObject) => {
-    event.preventDefault() 
-    if (validforSubmission(newReviewObject)) {
-      fetch(`/api/v1/movies/${id}/reviews.json`, {
-        method: "POST",
-        body: JSON.stringify(newReviewObject),
-        credentials: "same-origin",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => response.json())
-      .then(body => {
-        if (body.errors === undefined) {
-          setReviews([
-            ...reviews,
-            body
-          ])
-        } else {
-          const requiredFields = ["rating"]
-          requiredFields.forEach(field => { 
-            if (body.errors[field] !== undefined) {
-              setErrors({
-                ...errors,
-                [field]: body.errors[field][0]
-              })
-            }
-          })
-        }
-      })
-      .catch(error => console.error(`Error in fetch: ${error.message}`))
-    }
-  }
   
   return (
     <div>
@@ -72,10 +33,8 @@ const MovieShowContainer = (props) => {
       />
       <h2>Reviews:</h2>
       <ReviewList
-        movieReviews={reviews}
+        movieReviews={movie.reviews}
       />
-      <ReviewErrorList errors={errors} />
-      <ReviewForm addNewReviewFunction={addNewReview} />
     </div>
   )
 }

@@ -23,5 +23,4 @@ class Api::V1::MoviesController < ApplicationController
     def movie_params
       params.require(:movie).permit(:title, :summary, :year)
     end
-  
 end
