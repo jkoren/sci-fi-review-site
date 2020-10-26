@@ -18,6 +18,7 @@
     "@babel/runtime": "^7.6.2",
     "@rails/webpacker": "3.5",
     "babel-loader": "^8.0.6",
+    "foundation-sites": "^6.6.3",
     "lodash": "^4.17.20",
     "prop-types": "~15.6.0",
     "react": "~16.8.0",
