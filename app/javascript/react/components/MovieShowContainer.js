@@ -1,35 +1,9 @@
 import React, { useState, useEffect } from "react"
 import MovieShow from "./MovieShow"
 import ReviewList from "./ReviewList"
-<<<<<<< HEAD
-import ReviewForm from "./ReviewForm"
-import _ from 'lodash'
-import ReviewErrorList from './ReviewErrorList'
 
 const MovieShowContainer = (props) => {
   const [movie, setMovie] = useState({})
-  const [errors, setErrors] = useState({})
-  const [reviews, setReviews] = useState(null)
-  
-  const validforSubmission = (submittedReview) => {
-    let submittedErrors = {}
-    const requiredFields = ["rating"]
-    requiredFields.forEach(field => {
-      if (submittedReview[field].trim() === "") {
-        submittedErrors = {
-          ...submittedErrors,
-          [field]: "is blank"
-        }
-      }
-    })
-    setErrors(submittedErrors)
-    return _.isEmpty(submittedErrors)
-  }
-=======
-
-const MovieShowContainer = (props) => {
-  const [movie, setMovie] = useState({})
->>>>>>> 61d365b6c101615114bef687065ff7ba3a89b14e
 
   const id = props.match.params.id 
   useEffect(() => {
