@@ -22,13 +22,11 @@ const MovieShowContainer = (props) => {
       })
       .then((responseBody) => {
         setMovie(responseBody)
+        setReviews(responseBody.reviews)
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`))
   }, [])
 
-  if (movie.title && !reviews){
-    setReviews(movie.reviews)
-  }
   const validforSubmission = (submittedReview) => {
     let submittedErrors = {}
     const requiredFields = ["rating"]
