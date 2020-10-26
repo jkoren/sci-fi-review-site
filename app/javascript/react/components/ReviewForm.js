@@ -16,6 +16,7 @@ const ReviewForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    console.log(1)
     props.addNewReviewFunction(newReview)
     setNewReview({
       rating: "",

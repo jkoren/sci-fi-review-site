@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react"
 import MovieShow from "./MovieShow"
 import ReviewList from "./ReviewList"
-
+import _ from "lodash" 
+import ReviewErrorList from "./ReviewErrorList"
+import ReviewForm from "./ReviewForm"
 const MovieShowContainer = (props) => {
   const [movie, setMovie] = useState({})
-
+  const [errors, setErrors] = useState({})
+  const [reviews, setReviews] = useState(null)
   const id = props.match.params.id 
   useEffect(() => {
     fetch(`/api/v1/movies/${id}`)
@@ -26,7 +29,20 @@ const MovieShowContainer = (props) => {
   if (movie.title && !reviews){
     setReviews(movie.reviews)
   }
-
+  const validforSubmission = (submittedReview) => {
+    let submittedErrors = {}
+    const requiredFields = ["rating"]
+    requiredFields.forEach(field => {
+      if (submittedReview[field].trim() === "") {
+        submittedErrors = {
+          ...submittedErrors,
+          [field]: "is blank"
+        }
+      }
+    })
+    setErrors(submittedErrors)
+    return _.isEmpty(submittedErrors)
+  }
   const addNewReview = (newReviewObject) => {
     event.preventDefault() 
     if (validforSubmission(newReviewObject)) {
