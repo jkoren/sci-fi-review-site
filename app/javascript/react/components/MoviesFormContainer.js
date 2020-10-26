@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import Dropzone from 'react-dropzone'
 import { Redirect } from 'react-router-dom'
+
 import _ from 'lodash'
 
 import ErrorList from './ErrorList'
@@ -8,13 +10,21 @@ const MoviesFormContainer = (props) => {
   const [submittedMovie, setSubmittedMovie] = useState({
     title: "",
     summary: "",
-    year: ""
+    year: "",
+    image: ""
   })
   const [shouldRedirect, setShouldRedirect] = useState({
     redirect: false,
     id: ""
   })
   const [errors, setErrors] = useState({})
+
+  const handleFileUpload = (acceptedFiles) => {
+    setSubmittedMovie({
+      ...submittedMovie,
+      image: acceptedFiles[0]
+    })
+  }
 
   const validforSubmission = () => {
     let submittedErrors = {}
@@ -40,15 +50,16 @@ const MoviesFormContainer = (props) => {
 
   const onClickHandler = (event) => {
     event.preventDefault()
+    let movie = new FormData()
+    movie.append("movie[title]", submittedMovie.title)
+    movie.append("movie[summary]", submittedMovie.summary)
+    movie.append("movie[year]", submittedMovie.year)
+    movie.append("movie[movie_poster]", submittedMovie.image)
     if (validforSubmission()) {
       fetch('/api/v1/movies.json', {
         method: "POST",
-        body: JSON.stringify(submittedMovie),
-        credentials: "same-origin",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
+        body: movie,
+        credentials: "same-origin"
       })
       .then(response => {
         if (response.ok) {
