@@ -50,13 +50,11 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
   describe "GET#show" do
 
     it "should return an movie with all its attributes" do
-
       get :show, params: {id: movie2.id}
       returned_json = JSON.parse(response.body)
 
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
-    
 
       expect(returned_json.length).to eq 5
       expect(returned_json["title"]).to eq movie2.title
@@ -66,8 +64,8 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
       expect(returned_json["reviews"][0]['rating']).to eq review1.rating
       expect(returned_json["reviews"][1]["body"]).to eq review2.body
       expect(returned_json["reviews"][1]['rating']).to eq review2.rating
-    end 
-  end 
+    end
+  end
 
   describe "POST#create" do
     context "when a request correct params is made" do
@@ -83,7 +81,7 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
         expect(new_count).to eq previous_count + 1
       end
 
-      it "returns the new movie object as json" do
+      it "returns the new camper object as json" do
 
         post :create, params: good_movie_data
 
@@ -120,4 +118,4 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
       end
     end
   end
-end 
+end
