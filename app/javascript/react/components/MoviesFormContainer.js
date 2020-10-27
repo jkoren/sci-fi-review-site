@@ -97,55 +97,66 @@ const MoviesFormContainer = (props) => {
   }
 
   return(
-    <form onSubmit={onClickHandler}>
-      <ErrorList errors={errors} />
-      <label>
-        Title
-        <input 
-          name="title"
-          id="title"
-          type="text"
-          onChange={inputChangeHandler}
-          value={submittedMovie.title}
-          />
-      </label>
-      <label>
-        Summary
-        <input 
-          name="summary"
-          id="summary"
-          type="text"
-          onChange={inputChangeHandler}
-          value={submittedMovie.summary}
-          />
-      </label>
-      <label>
-        Year  
-        <input 
-          name="year"
-          id="year"
-          type="text"
-          onChange={inputChangeHandler}
-          value={submittedMovie.year}
-          />
-      </label>
+    <div>
+      <div>
+        <p class="callout secondary cell small-6">To add a new movie please enter title, summary, and year!</p>
+      </div>
+      
+      <div class="field">
+        <form onSubmit={onClickHandler}>
+          <ErrorList errors={errors} />
 
-      <Dropzone onDrop={handleFileUpload}>
-        {({getRootProps, getInputProps}) => (
-          <section>
-            <div {...getRootProps()}>
-              <input {...getInputProps()} />
-              <p>Click to upload a movie poster</p>
-            </div>
-          </section>
-        )}
-      </Dropzone>
+          <label>
+            Title
+            <input 
+              name="title"
+              id="title"
+              type="text"
+              onChange={inputChangeHandler}
+              value={submittedMovie.title}
+              />
+          </label>
 
-      <input
-        type="submit"
-        value="Add New Movie"
-      />
-    </form>
+          <label>
+            Summary
+            <input 
+              name="summary"
+              id="summary"
+              type="text"
+              onChange={inputChangeHandler}
+              value={submittedMovie.summary}
+              />
+          </label>
+
+          <label>
+            Year  
+            <input 
+              name="year"
+              id="year"
+              type="text"
+              onChange={inputChangeHandler}
+              value={submittedMovie.year}
+              />
+          </label>
+
+          <Dropzone onDrop={handleFileUpload}>
+            {({getRootProps, getInputProps}) => (
+              <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  <p>Click to upload a movie poster</p>
+                </div>
+              </section>
+            )}
+          </Dropzone>
+
+          <input
+            type="submit"
+            value="Add New Movie"
+          />
+      </form>
+      </div>
+    </div>
   )
 }
 
