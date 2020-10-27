@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         resources :reviews, only: [:create]
       end
       resources :reviews, only: [:show] do
-        resources :upvotes, only: [:create]
+        resources :upvotes, only: [:index, :create]
       end
     end
   end
