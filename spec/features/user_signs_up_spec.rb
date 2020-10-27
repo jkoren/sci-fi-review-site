@@ -12,7 +12,7 @@ feature 'user registers', %Q{
   # * If I don't specify the required information, I am presented with
   #   an error message
 
-  xscenario 'provide valid registration information' do
+  scenario 'provide valid registration information' do
     visit new_user_registration_path
 
     fill_in 'Email', with: 'john@example.com'
@@ -23,11 +23,11 @@ feature 'user registers', %Q{
     fill_in 'Last name', with: 'Smith'
     click_button 'Sign up'
 
-    xexpect(page).to have_content('Welcome! You have signed up successfully.')
+    expect(page).to have_content('Welcome! You have signed up successfully.')
     expect(page).to have_content('Sign Out')
   end
 
-  xscenario 'provide invalid registration information' do
+  scenario 'provide invalid registration information' do
     visit new_user_registration_path
 
     click_button 'Sign up'
