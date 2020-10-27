@@ -4,13 +4,18 @@ import ReviewList from "./ReviewList"
 import _ from "lodash" 
 import ReviewErrorList from "./ReviewErrorList"
 import ReviewForm from "./ReviewForm"
+
 const MovieShowContainer = (props) => {
   const [movie, setMovie] = useState({})
   const [errors, setErrors] = useState({})
+  const [error, setError] = useState(null)
   const [reviews, setReviews] = useState(null)
   const id = props.match.params.id 
+
   useEffect(() => {
-    fetch(`/api/v1/movies/${id}`)
+    fetch(`/api/v1/movies/${id}`, {
+      credentials: "same-origin"
+    })
       .then((response) => {
       if (response.ok) {
         return response.json();
@@ -57,12 +62,7 @@ const MovieShowContainer = (props) => {
       })
       .then(response => response.json())
       .then(body => {
-        if (body.errors === undefined) {
-          setReviews([
-            ...reviews,
-            body
-          ])
-        } else {
+        if (body.errors) {
           const requiredFields = ["rating"]
           requiredFields.forEach(field => { 
             if (body.errors[field] !== undefined) {
@@ -72,6 +72,13 @@ const MovieShowContainer = (props) => {
               })
             }
           })
+        }else if(body.error){
+          setError(body.error[0])
+        }else {
+          setReviews([
+            ...reviews,
+            body
+          ])
         }
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`))
@@ -90,8 +97,10 @@ const MovieShowContainer = (props) => {
       <ReviewList
         movieReviews={reviews}
       />
-      <ReviewErrorList errors={errors} />
+      <ReviewErrorList errors={errors} 
+      error={error}/>
       <ReviewForm addNewReviewFunction={addNewReview} />
+      
     </div>
   )
 }

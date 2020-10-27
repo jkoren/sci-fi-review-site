@@ -1,11 +1,12 @@
 class CreateReviews < ActiveRecord::Migration[5.2]
   def change
     create_table :reviews do |t|
-        t.belongs_to :movie, null: false
-        t.integer :rating, null: false
-        t.text :body 
+      t.belongs_to :user, null: false
+      t.belongs_to :movie, null: false
+      t.integer :rating, null: false
+      t.text :body 
   
-        t.timestamps
+      t.timestamps
     end
   end
 end

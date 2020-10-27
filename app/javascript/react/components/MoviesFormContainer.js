@@ -61,7 +61,7 @@ const MoviesFormContainer = (props) => {
         body: movie,
         credentials: "same-origin"
       })
-      .then(response => {
+      .then(response => { 
         if (response.ok) {
           return response.json()
         } else {
@@ -76,7 +76,7 @@ const MoviesFormContainer = (props) => {
             redirect: true,
             id: body.id
           })
-        } else {
+        }else {
           const requiredFields = ["title", "summary", "year"]
           requiredFields.forEach(field => { 
             if (body.errors[field] !== undefined) {
