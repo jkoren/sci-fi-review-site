@@ -14,6 +14,7 @@ class Api::V1::UpvotesController < ApplicationController
       count = upvotes_for_review.count
       render json: count
     else
+      render json: "You cannot vote twice".to_json
     end
   end
 end
