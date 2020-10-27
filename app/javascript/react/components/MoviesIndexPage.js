@@ -23,13 +23,13 @@ const MoviesIndexPage = (props) => {
 
   let movieListItems = movies.map((movie) => {
     return (
-    <div class="callout secondary cell small-4"> 
+    <div className="callout secondary cell small-4"> 
     {movie.title} | {movie.summary} | {movie.year}
     </div>)
   })
 
   return (
-    <div class="grid-x grid-margin-x">
+    <div className="grid-x grid-margin-x">
         {movieListItems}  
     </div> 
   )
