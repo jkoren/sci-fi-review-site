@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useState } from "react"
 
 const ReviewTile = (props) => {
+  const [upvotes, setUpvotes] = useState()
 
   const upvoteHandler = (reviewID, event) => {
     event.preventDefault()
@@ -10,7 +11,7 @@ const ReviewTile = (props) => {
     })
     .then(response => response.json()) 
     .then(body => {
-      debugger
+      setUpvotes(body)
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
@@ -19,6 +20,7 @@ const ReviewTile = (props) => {
     <div>
       <p>{props.rating} - {props.body}</p>
       <p onClick={(event) => upvoteHandler(props.id, event)}>Upvote</p>
+      <p>{upvotes}</p>
     </div>
   )
 }
