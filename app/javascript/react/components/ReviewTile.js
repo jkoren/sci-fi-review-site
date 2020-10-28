@@ -2,8 +2,8 @@ import React from "react"
 
 const ReviewTile = (props) => {
   return(
-    <div>
-    <p>{props.rating} - {props.body}</p>
+    <div className="callout secondary cell small-6">
+    <li>{props.rating} - {props.body}</li>
   </div>
   )
 }

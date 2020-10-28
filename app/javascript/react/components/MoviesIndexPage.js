@@ -24,14 +24,15 @@ const MoviesIndexPage = (props) => {
   }, [])
 
   let movieListItems = movies.map((movie) => {
-    return <li>{movie.title} | {movie.summary} | {movie.year}</li>
+    return (
+    <div className="callout secondary cell small-4"> 
+    {movie.title} | {movie.summary} | {movie.year}
+    </div>)
   })
 
   return (
-    <div>
-      <ul>
-        {movieListItems}
-      </ul>
+    <div className="grid-x grid-margin-x">
+        {movieListItems}  
     </div> 
   )
 }

@@ -16,9 +16,9 @@ const ReviewList = (props) => {
   }
   
   return (
-    <ul>
+    <div className="grid-x grid-margin-x">
       {reviewTiles}
-    </ul>
+    </div>
   )
 }
   export default ReviewList
