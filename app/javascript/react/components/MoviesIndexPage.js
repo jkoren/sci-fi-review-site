@@ -4,7 +4,9 @@ const MoviesIndexPage = (props) => {
   const [movies, setMovies] = useState([])
 
   useEffect(() => {
-    fetch("/api/v1/movies.json")
+    fetch("/api/v1/movies.json", {
+      credentials: "same-origin"
+    })
     .then (response => {
       if (response.ok) {
         return response

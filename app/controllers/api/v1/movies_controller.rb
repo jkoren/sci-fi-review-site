@@ -1,5 +1,6 @@
 class Api::V1::MoviesController < ApplicationController
-  
+  before_action :authenticate_user!, except: [:index, :show]
+
   def index
     movies = Movie.all
     render json: movies
@@ -23,5 +24,11 @@ class Api::V1::MoviesController < ApplicationController
   private
     def movie_params
       params.require(:movie).permit([:title, :summary, :year, :movie_poster])
+    end
+
+    def authenticate_user
+      if !user_signed_in?
+        render json: {error: ["You need to be signed in first"]}
+      end
     end
 end

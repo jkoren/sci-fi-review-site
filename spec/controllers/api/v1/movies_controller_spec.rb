@@ -1,6 +1,13 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::MoviesController, type: :controller do 
+  let!(:user1) {User.create(
+    email: "blah@gmail.com", 
+    first_name: "blah",
+    last_name: "blah",
+    password: "blahblah",
+    username: "blah"
+  )}
   let!(:movie) { Movie.create(
     title: "Star Wars",
     summary: "Movie from childhood",
@@ -15,20 +22,22 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
   let!(:review1) { Review.create(
     rating: 3,
     body: "It was okay",
-    movie: movie2
+    movie: movie2,
+    user: user1
   )}
 
   let!(:review2) {Review.create(
     rating: 100,
     body: "AWESOME!",
-    movie: movie2
+    movie: movie2,
+    user: user1
   )}
+  
   describe "GET#index" do
     it "should return a list of all the movies" do
-
+      
       get :index
       returned_json = JSON.parse(response.body)
-
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
@@ -47,12 +56,11 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
   describe "GET#show" do
 
     it "should return an movie with all its attributes" do
+      sign_in user1
       get :show, params: {id: movie2.id}
       returned_json = JSON.parse(response.body)
-
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
-
       expect(returned_json.length).to eq 5
       expect(returned_json["title"]).to eq movie2.title
       expect(returned_json["year"]).to eq movie2.year
@@ -65,10 +73,11 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
   end
 
   describe "POST#create" do
-    context "when a request correct params is made" do
+    context "when a request correct params is made and user is signed in" do
       let!(:good_movie_data) { { movie: {title: "Terminator", summary: "Arnold's voice", year: 1985} } }
 
       it "adds the movie to the database" do 
+        sign_in user1
         previous_count = Movie.count
 
         post :create, params: good_movie_data
@@ -79,7 +88,7 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
       end
 
       it "returns the new movie object as json" do
-
+        sign_in user1
         post :create, params: good_movie_data
 
         returned_json = JSON.parse(response.body)
@@ -94,8 +103,31 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
       end
     end
 
-    context "when a malformed request is made" do
+    context "when parameters are not filled out but user is signed in" do
       let!(:bad_movie_data) { { movie: {summary: "Arnold's voice", year: 1985} } }
+
+      it "should not should not save to the database" do
+        sign_in user1
+        previous_count = Movie.count
+
+        post :create, params: bad_movie_data
+
+        new_count = Movie.count
+
+        expect(new_count).to eq previous_count
+      end
+
+      it "does not successfully create a movie object" do
+        sign_in user1
+        post :create, params: bad_movie_data
+
+        returned_response = JSON.parse(response.body)
+
+        expect(returned_response["errors"]["title"][0]).to eq "can't be blank"
+      end
+    end
+    context "when the parameters are correct but user is not signed it" do
+      let!(:bad_movie_data) { { movie: {title: "Terminator", summary: "Arnold's voice", year: 1985} } }
 
       it "should not should not save to the database" do
         previous_count = Movie.count
@@ -107,12 +139,12 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
         expect(new_count).to eq previous_count
       end
 
-      it "does not successfully create a movie object" do
+      it "we are redirected to the sign in page" do
         post :create, params: bad_movie_data
-
-        returned_response = JSON.parse(response.body)
-
-        expect(returned_response["errors"]["title"][0]).to eq "can't be blank"
+        
+        response_body = response.body
+        expect(response.status).to eq 302 
+        expect(response_body).to eq "<html><body>You are being <a href=\"http://test.host/users/sign_in\">redirected</a>.</body></html>"
       end
     end
   end
