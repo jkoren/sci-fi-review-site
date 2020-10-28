@@ -90,6 +90,7 @@ const MovieShowContainer = (props) => {
         title={movie.title}
         summary={movie.summary}
         year={movie.year}
+        movie_poster={movie.movie_poster}
       />
       <h2>Reviews:</h2>
       <ReviewList

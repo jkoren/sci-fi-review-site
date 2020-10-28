@@ -24,9 +24,14 @@ const MoviesIndexPage = (props) => {
   }, [])
 
   let movieListItems = movies.map((movie) => {
+    let poster
+    if(movie.movie_poster.url){
+      poster = <img src={movie.movie_poster.url} alt="movie poster" />
+    }
     return (
     <div className="callout secondary cell small-4"> 
-    {movie.title} | {movie.summary} | {movie.year}
+    <p> {movie.title} | {movie.summary} | {movie.year} </p>
+    {poster}
     </div>)
   })
 
