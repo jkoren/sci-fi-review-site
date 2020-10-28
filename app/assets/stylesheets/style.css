@@ -39,11 +39,17 @@ div.body-container{
 h2.field{
  font-family: 'Orbitron', sans-serif;
  color: rgb(11, 11, 63);
+ margin-left: 80px;
 }
 
 h5.field{
  font-family: 'Orbitron', sans-serif;
  color: rgb(11, 11, 63);
+ margin-left: 80px;
+}
+
+p.field{
+  margin-left: 80px;
 }
 
 div.field label{
@@ -55,3 +61,8 @@ div.field a{
  font-family: 'Orbitron', sans-serif;
  color: white;
 }
+
+.padded {
+  padding-left: 300px
+}
+

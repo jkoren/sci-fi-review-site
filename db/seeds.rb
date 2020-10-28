@@ -14,9 +14,14 @@ movie2 = Movie.create!(title: "Aliens", summary: "Nuke the whole site from orbit
 user2 = User.new(email: "cr@gmail.com", first_name: "Chris", last_name: "Rackey", username: "Crackey")
 user2.password = "blahblah"
 user2.save 
-review1 = Review.create!(rating: 1, body: "This movie stinks", movie: movie, user: user1)
 
-review2 = Review.create!(rating: 5, body: "This movie rocks", movie: movie, user: user2)
+user1 = User.new(email: "brack@gmailcom", first_name: "Red", last_name: "Braken", username: "B.Racken")
+user1.password = "blahblahblah"
+user1.save
+
+review1 = Review.create!(rating: 1, body: "This movie stinks", movie: movie, user: user2)
+
+review2 = Review.create!(rating: 5, body: "This movie rocks", movie: movie, user: user1)
 
 
 
