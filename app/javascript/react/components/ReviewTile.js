@@ -6,7 +6,7 @@ const ReviewTile = (props) => {
 
   useEffect(() => {
     setError("")
-    fetch(`/api/v1/reviews/${props.id}/upvotes.json`)
+    fetch(`/api/v1/reviews/${props.id}/votes.json`)
     .then (response => {
       if (response.ok) {
         return response
@@ -23,12 +23,16 @@ const ReviewTile = (props) => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
 
-  const upvoteHandler = (reviewID, event) => {
+  const voteHandler = (reviewID, vote, event) => {
     setError("")
+
     event.preventDefault()
-    fetch(`/api/v1/reviews/${reviewID}/upvotes.json`, {
+    let userVote = new FormData()
+    userVote.append("vote[type]", vote)
+    fetch(`/api/v1/reviews/${reviewID}/votes.json`, {
       method: "POST",
-      credentials: "same-origin"
+      credentials: "same-origin",
+      body: userVote
     })
     .then (response => {
       if (response.ok) {
@@ -54,8 +58,9 @@ const ReviewTile = (props) => {
     <div className="callout secondary cell small-6">
       <p>{props.rating} - {props.body}</p>
       <p>{error}</p>
-      <button className="button" onClick={(event) => upvoteHandler(props.id, event)}>Upvote</button>
+      <button className="button" onClick={(event) => voteHandler(props.id, 1, event)}>Upvote</button>
       <p>{upvotes}</p>
+      <button className="button" onClick={(event) => voteHandler(props.id, -1, event)}>Downvote</button>
     </div>
   )
 }
