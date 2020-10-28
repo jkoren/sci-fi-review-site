@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { Link } from 'react-router-dom'
 
 const MoviesIndexPage = (props) => {
   const [movies, setMovies] = useState([])
@@ -30,8 +31,10 @@ const MoviesIndexPage = (props) => {
     }
     return (
     <div className="callout secondary cell small-4"> 
-    <p> {movie.title} | {movie.summary} | {movie.year} </p>
-    {poster}
+      <Link to={`/movies/${movie.id}`}>
+        <p> {movie.title} | {movie.summary} | {movie.year} \</p>
+        {poster}
+      </Link>
     </div>)
   })
 
