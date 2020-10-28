@@ -9,11 +9,9 @@ const ReviewErrorList = props => {
     const listItems = errantFields.map(field => {
       index++
       return (
-        <div>
         <li key={index}>
           {_.capitalize(field)} {props.errors[field]}
         </li>
-        </div>
       )
    })
     return (
