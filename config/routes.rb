@@ -12,9 +12,8 @@ Rails.application.routes.draw do
       resources :movies, only: [:index, :show, :create] do
         resources :reviews, only: [:create]
       end
-      resources :reviews, only: [:show] do
-        resources :votes, only: [:index, :create]
-      end
+      resources :reviews, only: [:show]
+      resources :votes, only: [:index, :create]
     end
   end
     

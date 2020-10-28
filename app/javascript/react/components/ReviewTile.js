@@ -6,7 +6,18 @@ const ReviewTile = (props) => {
 
   useEffect(() => {
     setError("")
-    fetch(`/api/v1/reviews/${props.id}/votes.json`)
+    let votePayLoad = {
+      reviewID: props.id
+    }
+    fetch('/api/v1/votes', {
+      credentials: "same-origin",
+      method: "POST",
+      body: JSON.stringify(votePayLoad),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
     .then (response => {
       if (response.ok) {
         return response
@@ -27,12 +38,25 @@ const ReviewTile = (props) => {
     setError("")
 
     event.preventDefault()
-    let userVote = new FormData()
-    userVote.append("vote[type]", vote)
-    fetch(`/api/v1/reviews/${reviewID}/votes.json`, {
-      method: "POST",
+    // let userVote = new FormData()
+    // userVote.append("vote[type]", vote)
+    // fetch(`/api/v1/reviews/${reviewID}/votes.json`, {
+    //   method: "POST",
+    //   credentials: "same-origin",
+    //   body: userVote
+    // })
+    let votePayLoad = {
+      reviewID: reviewID,
+      voteType: vote
+    }
+    fetch('/api/v1/votes', {
       credentials: "same-origin",
-      body: userVote
+      method: "POST",
+      body: JSON.stringify(votePayLoad),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
     })
     .then (response => {
       if (response.ok) {
@@ -53,7 +77,7 @@ const ReviewTile = (props) => {
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
-
+  
   return(
     <div className="callout secondary cell small-6">
       <p>{props.rating} - {props.body}</p>
