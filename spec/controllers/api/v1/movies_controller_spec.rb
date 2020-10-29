@@ -74,7 +74,6 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
       expect(returned_json.length).to eq 2
-      binding.pry
       expect(returned_json["movie"]["title"]).to eq "Arrival"
       expect(returned_json["movie"]["year"]).to eq 2017
       expect(returned_json["movie"]["summary"]).to eq "Very sad story about parenthood"
