@@ -1,28 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap");
-
 nav.top-bar{
   background-color: #1d2065;
 }
-
 a {
  font-family: 'Orbitron', sans-serif;
  color: #e90fec;
 }
-
 a:hover {
  font-family: 'Orbitron', sans-serif;
  color: #41cede;
 }
-
 a:visited {
  font-family: 'Orbitron', sans-serif;
  color: #e90fec;
 }
-
 .top-bar-section{
  background-color: #1d2065;
 }
-
 html, body, div.body-container{ 
  background-image: url("https://wallpaperaccess.com/full/42337.jpg"); 
  height: 100%;
@@ -30,32 +24,43 @@ html, body, div.body-container{
  background-repeat: no-repeat;  
  background-size: cover 
 }
-
 div.body-container{
  font-family: 'Orbitron', sans-serif;
  color: white;
 }
-
 h2.field{
  font-family: 'Orbitron', sans-serif;
  color: rgb(11, 11, 63);
+ margin-left: 80px;
 }
-
 h5.field{
  font-family: 'Orbitron', sans-serif;
  color: rgb(11, 11, 63);
+ margin-left: 80px;
 }
-
+p.field{
+  margin-left: 80px;
+}
 div.field label{
  font-family: 'Orbitron', sans-serif;
  color: white;
 }
-
 div.field a{
  font-family: 'Orbitron', sans-serif;
  color: white;
 }
-
 .button {
   background-color:#171e67;
+}
+.padded {
+  padding-left: 300px
+}
+span + span {
+    margin-left: 10px;
+}
+.fa-arrow-circle-up {
+  color: green;
+}
+.fa-arrow-circle-down {
+  color: red;
 }
