@@ -3,35 +3,15 @@ import React, { useState, useEffect } from "react"
 const ReviewTile = (props) => {
   const [votes, setVotes] = useState()
   const [error, setError] = useState("")
+  
   useEffect(() => {
-    setError("")
-    let votePayLoad = {
-      reviewID: props.id
-    }
-    fetch('/api/v1/votes', {
-      credentials: "same-origin",
-      method: "POST",
-      body: JSON.stringify(votePayLoad),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
+    let num = 0
+    props.votes.forEach(voteObj => {
+    num += voteObj.vote
     })
-    .then (response => {
-      if (response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-          error = new Error(errorMessage)
-        throw error
-      }
-    })
-    .then(response => response.json())
-    .then(body => {
-      setVotes(body) 
-    })
-    .catch(error => console.error(`Error in fetch: ${error.message}`))
+    setVotes(num)
   }, [])
+
   const voteHandler = (reviewID, vote, event) => {
     setError("")
     event.preventDefault()
@@ -44,7 +24,7 @@ const ReviewTile = (props) => {
       method: "POST",
       body: JSON.stringify(votePayLoad),
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json"
       }
     })

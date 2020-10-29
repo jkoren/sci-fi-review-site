@@ -19,21 +19,6 @@ RSpec.describe Api::V1::VotesController, type: :controller do
   )}
 
   describe "POST#create" do
-    context "upon initial loading of the page" do
-      it "renders the correct number of votes already present" do
-        Vote.create!(user: user2, review: star_wars_review, vote: 1)
-        Vote.create!(user: user3, review: star_wars_review, vote: 1)
-        Vote.create!(user: user4, review: star_wars_review, vote: 1)
-        post_json = {
-          reviewID: star_wars_review.id,
-        }
-        post(:create, params: post_json, format: :json)
-        returned_json = JSON.parse(response.body)
-
-        expect(returned_json).to eq 3
-      end
-    end
-
     context "when a user upvotes" do
       it "creates a new vote" do
         post_json = {

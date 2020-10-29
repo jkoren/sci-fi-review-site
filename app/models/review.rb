@@ -1,6 +1,5 @@
 class Review < ApplicationRecord
-  has_many :upvotes
-  has_many :downvotes
+  has_many :votes
   
   belongs_to :user
   belongs_to :movie

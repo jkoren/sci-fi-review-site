@@ -6,13 +6,14 @@ Rails.application.routes.draw do
   get "/movies/new", to: "homes#authenticated"
   get "/movies/:id", to: "homes#index"
 
-  
   namespace :api do
     namespace :v1 do
       resources :movies, only: [:index, :show, :create] do
         resources :reviews, only: [:create]
       end
-      resources :reviews, only: [:show]
+      resources :reviews, only: [:show] do
+        resources :votes, only: [:index]
+      end
       resources :votes, only: [:index, :create]
     end
   end
