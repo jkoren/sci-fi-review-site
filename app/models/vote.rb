@@ -5,5 +5,5 @@ class Vote < ApplicationRecord
   validates :review, uniqueness: { scope: :user }
   validates :user, uniqueness: { scope: :review }
 
-  validates :vote, numericality: true, inclusion: { in: [-1, 0, 1] }
+  validates :vote, numericality: true, inclusion: { in: [-1, 1] }
 end

@@ -1,10 +1,5 @@
 class Api::V1::VotesController < ApplicationController
   # before_action :authenticate_user!
-  def index
-    total_votes = get_total_votes
-    render json: total_votes
-  end
-
   def create
     if params["voteType"].nil?
       total_votes = get_total_votes
