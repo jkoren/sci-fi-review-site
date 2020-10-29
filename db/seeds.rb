@@ -13,6 +13,18 @@ star_wars_review1_body = '"A long time ago, in a galaxy far, far away..."'
 
 star_wars_review2_body = 'Only seen the original Star Wars films a few times, I tend to forget how great of a magical experience it is! A New Hope is so awesome in so many aspects especially the music and sounds of everything! It\'s amazing how it was made for it\'s time I still I don\'t understand how they did many things. I will admit it has a few bits that are boring but still glorious. Up until a few years ago I didn\'t see most of the films and I didn\'t understand the hype now I do in which I\'m happy with them all even seen the new ones.'
 
+user2 = User.new(email: "cr@gmail.com", first_name: "Chris", last_name: "Rackey", username: "Crackey")
+user2.password = "blahblah"
+user2.save 
+
+user1 = User.new(email: "brack@gmailcom", first_name: "Red", last_name: "Braken", username: "B.Racken")
+user1.password = "blahblahblah"
+user1.save
+
+review1 = Review.create!(rating: 1, body: "This movie stinks", movie: movie, user: user2)
+
+review2 = Review.create!(rating: 5, body: "This movie rocks", movie: movie, user: user1)
+
 aliens_summary = 'Ellen Ripley is rescued by a deep salvage team after being in hypersleep for 57 years. The moon that the Nostromo visited has been colonized, but contact is lost. This time, colonial marines have impressive firepower, but will that be enough?'
 
 aliens_review1_body = 'Series note: It is strongly advised that you watch this film only after seeing Alien (1979). This is a direct continuation of that story.
@@ -30,9 +42,6 @@ Cameron carries over the crypt/labyrinth motif of the first film, and adds a met
 Part of what makes the monsters so effective is that we\'re not told too much about them. We only get glimpses into their physiology\'s, their behavioral patterns and their intelligence. Cameron gives us just enough to become wrapped up in the film, but not so much that we become overly familiar with the aliens, or start to question the logic behind the film. He also smartly carries over some devices from the first film that were abandoned to an extent, such as the acidic blood of the aliens, and he supplies answers to the few questions that the first film raised, such as why the blood doesn\'t corrode instruments and objects when a dead alien is examined.
 
 Aliens is yet another example of a sequel that is just as good as an original film in a series. Just make sure you watch both in order, and try to watch the director\'s cuts.'
-
-Movie.destroy_all
-Review.destroy_all
 
 star_wars = Movie.create!(title: "Star Wars", summary: star_wars_summary, year: 1986)
 aliens = Movie.create!(title: "Aliens", summary: aliens_summary, year: 1986)

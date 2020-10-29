@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   root 'homes#index'
   get "/movies", to: "homes#index"
-  get "/movies/new", to: "homes#index"
+  get "/movies/new", to: "homes#authenticated"
   get "/movies/:id", to: "homes#index"
 
   

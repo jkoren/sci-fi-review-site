@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react"
+import { Link } from 'react-router-dom'
 
 const MoviesIndexPage = (props) => {
   const [movies, setMovies] = useState([])
 
   useEffect(() => {
-    fetch("/api/v1/movies.json")
+    fetch("/api/v1/movies.json", {
+      credentials: "same-origin"
+    })
     .then (response => {
       if (response.ok) {
         return response
@@ -22,9 +25,16 @@ const MoviesIndexPage = (props) => {
   }, [])
 
   let movieListItems = movies.map((movie) => {
+    let poster
+    if(movie.movie_poster.url){
+      poster = <img src={movie.movie_poster.url} alt="movie poster" />
+    }
     return (
     <div className="callout secondary cell small-4"> 
-    {movie.title} | {movie.summary} | {movie.year}
+      <Link to={`/movies/${movie.id}`}>
+        <p> {movie.title} | {movie.summary} | {movie.year} \</p>
+        {poster}
+      </Link>
     </div>)
   })
 
