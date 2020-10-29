@@ -35,7 +35,7 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
   
   describe "GET#index" do
     it "should return a list of all the movies" do
-      
+
       get :index
       returned_json = JSON.parse(response.body)
       expect(response.status).to eq 200
@@ -56,19 +56,33 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
   describe "GET#show" do
 
     it "should return an movie with all its attributes" do
+      Vote.create!(
+        user: user1,
+        review: review1,
+        vote: 1
+      )
+    
+      Vote.create!(
+        user: user1,
+        review: review2,
+        vote: 1
+      )
+
       sign_in user1
       get :show, params: {id: movie2.id}
       returned_json = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
-      expect(returned_json.length).to eq 6
-      expect(returned_json["title"]).to eq movie2.title
-      expect(returned_json["year"]).to eq movie2.year
-      expect(returned_json["summary"]).to eq movie2.summary
-      expect(returned_json["reviews"][0]["body"]).to eq review1.body
-      expect(returned_json["reviews"][0]['rating']).to eq review1.rating
-      expect(returned_json["reviews"][1]["body"]).to eq review2.body
-      expect(returned_json["reviews"][1]['rating']).to eq review2.rating
+      expect(returned_json.length).to eq 2
+      expect(returned_json["movie"]["title"]).to eq "Arrival"
+      expect(returned_json["movie"]["year"]).to eq 2017
+      expect(returned_json["movie"]["summary"]).to eq "Very sad story about parenthood"
+      expect(returned_json["reviews"][0]["body"]).to eq "It was okay"
+      expect(returned_json["reviews"][0]['rating']).to eq 3
+      expect(returned_json["reviews"][1]["body"]).to eq "AWESOME!"
+      expect(returned_json["reviews"][1]['rating']).to eq 100
+      expect(returned_json["reviews"][0]["votes"][0]["vote"]).to eq 1
+      expect(returned_json["reviews"][1]["votes"][0]["vote"]).to eq 1
     end
   end
 

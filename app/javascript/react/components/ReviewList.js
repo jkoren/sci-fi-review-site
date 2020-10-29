@@ -10,6 +10,7 @@ const ReviewList = (props) => {
         id={review.id}
         rating={review.rating}
         body={review.body}
+        votes={review.votes}
       />
       )
     })
