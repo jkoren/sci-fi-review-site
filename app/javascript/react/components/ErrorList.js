@@ -18,7 +18,15 @@ const ErrorList = props => {
         <ul>{listItems}</ul>
       </div>
     )
-  } else {
+  }else if(props.error){ 
+    return (
+    <div className="callout alert">
+      <ul>
+        <li>{props.error}</li>
+      </ul>
+    </div>
+    )
+  }else {
     return ""
   }
 }

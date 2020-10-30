@@ -18,6 +18,7 @@ const MoviesFormContainer = (props) => {
     id: ""
   })
   const [errors, setErrors] = useState({})
+  const [error, setError] = useState(null)
 
   const handleFileUpload = (acceptedFiles) => {
     setSubmittedMovie({
@@ -58,25 +59,16 @@ const MoviesFormContainer = (props) => {
     if (validforSubmission()) {
       fetch('/api/v1/movies.json', {
         method: "POST",
-        body: movie,
-        credentials: "same-origin"
-      })
-      .then(response => { 
-        if (response.ok) {
-          return response.json()
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-          error = new Error(errorMessage);
-          throw(error);
+        body: JSON.stringify(movie),
+        credentials: "same-origin",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
         }
-      }) 
+      })
+      .then(response => response.json())
       .then(body => {
-        if (body.errors === undefined) {
-          setShouldRedirect({
-            redirect: true,
-            id: body.id
-          })
-        }else {
+        if (body.errors) {
           const requiredFields = ["title", "summary", "year"]
           requiredFields.forEach(field => { 
             if (body.errors[field] !== undefined) {
@@ -85,6 +77,13 @@ const MoviesFormContainer = (props) => {
                 [field]: body.errors[field][0]
               })
             }
+          })
+        }else if (body.error) {
+          setError(body.error)
+        }else{
+          setShouldRedirect({
+            redirect: true,
+            id: body.id
           })
         }
       })
@@ -99,12 +98,13 @@ const MoviesFormContainer = (props) => {
   return(
     <div>
       <div>
-        <p class="callout secondary cell small-6">To add a new movie please enter title, summary, and year!</p>
+        <p className="callout secondary cell small-6">To add a new movie please enter title, summary, and year!</p>
       </div>
       
-      <div class="field">
+      <div className="field">
         <form onSubmit={onClickHandler}>
-          <ErrorList errors={errors} />
+          <ErrorList errors={errors}
+          error={error} />
 
           <label>
             Title
