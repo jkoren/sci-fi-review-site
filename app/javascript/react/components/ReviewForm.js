@@ -24,7 +24,7 @@ const ReviewForm = (props) => {
   }
   return (
     <form className="new-review-form callout" onSubmit={handleSubmit}>
-      <label>
+      <label className="review-label">
         Rating:
         <input
           name="rating"
@@ -34,8 +34,8 @@ const ReviewForm = (props) => {
           value={newReview.rating}
         />
       </label>
-      <label>
-        Review Body:
+      <label className="review-label">
+        Complaints:
         <input
           name="body"
           id="body"

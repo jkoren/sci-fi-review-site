@@ -9,7 +9,7 @@ const MovieShow = (props) => {
   }
   return(
    
-    <div className="callout secondary cell small-6">
+    <div className="tile">
       <div className = "grid-x grid-margin-x">
         <div className = "small-6 columns">
           <h2 className="field">{props.title}</h2>
