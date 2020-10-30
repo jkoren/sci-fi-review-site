@@ -59,12 +59,8 @@ const MoviesFormContainer = (props) => {
     if (validforSubmission()) {
       fetch('/api/v1/movies.json', {
         method: "POST",
-        body: JSON.stringify(movie),
-        credentials: "same-origin",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
+        body: movie,
+        credentials: "same-origin"
       })
       .then(response => response.json())
       .then(body => {
