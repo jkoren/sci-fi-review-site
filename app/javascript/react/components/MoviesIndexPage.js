@@ -27,21 +27,26 @@ const MoviesIndexPage = (props) => {
   let movieListItems = movies.map((movie) => {
     let poster
     if(movie.movie_poster.url){
-      poster = <img src={movie.movie_poster.url} alt="movie poster" />
+      poster = <img className="poster" src={movie.movie_poster.url} alt="movie poster" />
     }
     return (
     <div className="callout secondary cell small-4"> 
       <Link to={`/movies/${movie.id}`}>
-        <p> {movie.title} | {movie.summary} | {movie.year} \</p>
-        {poster}
+         <h2 className="title" >{movie.title} ({movie.year})</h2>
+        <div>{poster}</div>
       </Link>
     </div>)
   })
 
   return (
+    <div>
     <div className="grid-x grid-margin-x">
-        {movieListItems}  
+        {movieListItems} 
     </div> 
+    <div>
+    <Link className="big" to={`/movies/new`}>Add a New Movie </Link>
+    </div>
+    </div>
   )
 }
 

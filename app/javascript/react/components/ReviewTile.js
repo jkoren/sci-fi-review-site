@@ -48,9 +48,9 @@ const ReviewTile = (props) => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
   return(
-    <div className="callout secondary cell small-6">
+    <div className="callout secondary cell small-12">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"/>
-      <p>{props.rating} - {props.body}</p>
+      <p className="reviews">Rating: {props.rating} | Review: {props.body}</p>
       <p>{error}</p>
       <span>
         <button className="button" onClick={(event) => voteHandler(props.id, 1, event)}>Upvote</button>

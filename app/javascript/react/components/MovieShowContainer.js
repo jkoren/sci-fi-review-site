@@ -91,7 +91,7 @@ const MovieShowContainer = (props) => {
         year={movie.year}
         movie_poster={movie.movie_poster}
       />
-      <h2>Reviews:</h2>
+      <h2 className="review-label-header">Reviews:</h2>
       <ReviewList
         movieReviews={reviews}
       />
