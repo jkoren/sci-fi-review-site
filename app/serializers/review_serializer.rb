@@ -3,4 +3,6 @@ class ReviewSerializer < ActiveModel::Serializer
 
   belongs_to :movie
   belongs_to :user
+
+  has_many :votes
 end
